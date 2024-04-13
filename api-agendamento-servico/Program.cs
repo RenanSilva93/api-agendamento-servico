@@ -1,4 +1,13 @@
+using api_agendamento_servico.Data;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AgendamentoServicoDataContext>(
+    options =>
+        options.UseSqlServer(connectionString));
 
 // Add services to the container.
 
