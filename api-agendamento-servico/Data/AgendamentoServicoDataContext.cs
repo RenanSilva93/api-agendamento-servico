@@ -11,7 +11,7 @@ namespace api_agendamento_servico.Data
         {
         }
 
-        public DbSet<Usuario> Users { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
