@@ -38,6 +38,18 @@ namespace api_agendamento_servico.Data.Mappings
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(255);
 
+            builder.Property(x => x.CPF_CNPJ)
+                .IsRequired()
+                .HasColumnName("CPF_CNPJ")
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(14);
+
+            builder.Property(x => x.Celular)
+                .IsRequired()
+                .HasColumnName("Celular")
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(11);
+
             // Índices
             builder
                 .HasIndex(x => x.Id, "IX_User_Id")

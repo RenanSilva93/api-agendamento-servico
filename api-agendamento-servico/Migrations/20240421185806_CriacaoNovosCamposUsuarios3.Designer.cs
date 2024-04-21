@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api_agendamento_servico.Data;
 
@@ -10,9 +11,11 @@ using api_agendamento_servico.Data;
 namespace api_agendamento_servico.Migrations
 {
     [DbContext(typeof(AgendamentoServicoDataContext))]
-    partial class AgendamentoServicoDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240421185806_CriacaoNovosCamposUsuarios3")]
+    partial class CriacaoNovosCamposUsuarios3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
