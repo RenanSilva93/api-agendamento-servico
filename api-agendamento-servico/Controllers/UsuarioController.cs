@@ -49,7 +49,7 @@ namespace api_agendamento_servico.Controllers
 
         [HttpPost("v1/usuarios")]
         public async Task<IActionResult> PostAsync(
-            [FromBody] EditorUsuariosViewModel model,
+            [FromBody] CriarUsuariosViewModel model,
             [FromServices] AgendamentoServicoDataContext context)
         {
             
@@ -57,7 +57,6 @@ namespace api_agendamento_servico.Controllers
             {
                 var usuario = new Usuario
                 {
-                    //Id = 0,
                     Nome = model.Nome,
                     Email = model.Email.ToLower(),
                     Senha = model.Senha
@@ -74,6 +73,39 @@ namespace api_agendamento_servico.Controllers
             catch
             {
                 return StatusCode(500, new ResultadoViewModel<Usuario>("01X04 - Falha interna no servidor"));
+            }
+        }
+
+        [HttpPut("v1/usuarios")]
+        public async Task<IActionResult> PutAsync(
+            [FromBody] EditorUsuariosViewModel model,
+            [FromServices] AgendamentoServicoDataContext context)
+        {
+            try
+            {
+                var usuario = await context
+                    .Usuarios
+                    .FirstOrDefaultAsync(x => x.Id == model.Id);
+
+                if (usuario == null)
+                    return NotFound(new ResultadoViewModel<Usuario>("Conteúdo não encontrado"));
+
+                usuario.Nome = model.Nome;
+                usuario.Email = model.Email;
+
+                context.Usuarios.Update(usuario);
+                await context.SaveChangesAsync();
+
+                return Ok(new ResultadoViewModel<Usuario>(usuario));
+
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, new ResultadoViewModel<Usuario>("01X05 - Não foi possível atualizar usuário!"));
+            }
+            catch
+            {
+                return StatusCode(500, new ResultadoViewModel<Usuario>("01X06 - Falha interna no servidor"));
             }
         }
 
